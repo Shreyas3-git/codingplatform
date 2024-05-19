@@ -1,6 +1,8 @@
 package com.crio.codingplateform.controller;
 
+import com.crio.codingplateform.dto.CommonResponse;
 import com.crio.codingplateform.dto.UserDto;
+import com.crio.codingplateform.entity.User;
 import com.crio.codingplateform.model.UserRegistrationRequest;
 import com.crio.codingplateform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +33,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> registerUser(@Valid @RequestBody UserRegistrationRequest request) {
-        userService.registerUser(request);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<CommonResponse> registerUser(@Valid @RequestBody UserRegistrationRequest request) {
+        CommonResponse response = userService.registerUser(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{userId}")
@@ -43,8 +45,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteUserById(@PathVariable long userId) {
-        userService.deleteUserById(userId);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<CommonResponse> deleteUserById(@PathVariable long userId) {
+        CommonResponse response = userService.deleteUserById(userId);
+        return ResponseEntity.ok(response);
     }
 }

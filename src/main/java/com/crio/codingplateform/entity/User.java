@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.annotation.Collation;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.List;
 import java.util.Set;
 
 
@@ -28,15 +25,15 @@ public class User
 
 
     public void assignBadges(User user) {
-        Set<Badges> badges = user.getBadges();
         int score = user.getScore();
-        badges.clear();
-        if (score >= 1 && score < 30) {
-            badges.add(Badges.CODE_NINJA);
-        } else if (score >= 30 && score < 60) {
-            badges.add(Badges.CODE_CHAMP);
-        } else if (score >= 60 && score <= 100) {
-            badges.add(Badges.CODE_CHAMP);
+        if(this.badges.size() == 3)
+            return;
+        if (this.badges.isEmpty() && score >= 1 && score < 30 || !this.badges.contains(Badges.CODE_NINJA) && score >= 1 && score < 30) {
+            this.badges.add(Badges.CODE_NINJA);
+        } else if (this.badges.isEmpty() && score >= 30 && score < 60 || !this.badges.contains(Badges.CODE_CHAMP) && score >= 30 && score < 60) {
+            this.badges.add(Badges.CODE_CHAMP);
+        } else if (this.badges.isEmpty() && score >= 60 && score <= 100 || !this.badges.contains(Badges.CODE_MASTER) && score >= 60 && score <= 100) {
+            this.badges.add(Badges.CODE_MASTER);
         }
     }
 }

@@ -5,3 +5,8 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/coder_hack
+
+logging:
+  level:
+    root: INFO
+    com.crio.codingplatform: INFO

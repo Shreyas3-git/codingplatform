@@ -11,7 +11,7 @@ import javax.validation.constraints.Pattern;
 public class UserRegistrationRequest
 {
     @Pattern(regexp = "^[1-9]|0[0-9]$",message = "Invalid UserId")
-    private int userId;
+    private long userId;
     @NotNull(message = "Username should not be null")
     @NotBlank(message = "Username should not be blank")
     @Pattern(regexp = "^[a-zA-Z\s]{3,30}$",message = "Invalid Username")
